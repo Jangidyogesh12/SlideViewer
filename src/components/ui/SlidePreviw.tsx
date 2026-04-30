@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { SlideFrame } from "./SlideFrame";
 
 import type { SlideData } from "../../slides";
@@ -6,6 +6,7 @@ import { NoData } from "../molecules/NoData";
 
 const BASE_SLIDE_WIDTH = 1920;
 const BASE_SLIDE_HEIGHT = 1080;
+const THUMB_SCALE = 0.071;
 
 type SlidePreviewProps = {
   items: SlideData[];
@@ -15,30 +16,6 @@ type SlidePreviewProps = {
 export function SlidePreview({ items, theme = "dark" }: SlidePreviewProps) {
   const [selectedSlideId, setSelectedSlideId] = useState(items[0]?.id ?? "");
   const [drawerOpen, setDrawerOpen] = useState(true);
-  const [thumbWidth, setThumbWidth] = useState(160);
-  const measureThumbRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const node = measureThumbRef.current;
-
-    if (!node) {
-      return;
-    }
-
-    const observer = new ResizeObserver((entries) => {
-      const nextWidth = entries[0]?.contentRect.width;
-
-      if (nextWidth) {
-        setThumbWidth(nextWidth);
-      }
-    });
-
-    observer.observe(node);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [drawerOpen]);
 
   if (!items.length) {
     return <NoData theme={theme} />;
@@ -74,16 +51,13 @@ export function SlidePreview({ items, theme = "dark" }: SlidePreviewProps) {
                 aria-label={slide.name ?? `Slide ${slide.id}`}
                 onClick={() => setSelectedSlideId(slide.id)}
               >
-                <div
-                  className="thumb-viewport"
-                  ref={index === 0 ? measureThumbRef : undefined}
-                >
+                <div className="thumb-viewport">
                   <div
                     className="thumb-scale"
                     style={{
                       width: BASE_SLIDE_WIDTH,
                       height: BASE_SLIDE_HEIGHT,
-                      transform: `scale(${thumbWidth / BASE_SLIDE_WIDTH + 0.001})`,
+                      transform: `scale(${THUMB_SCALE})`,
                     }}
                   >
                     <SlideFrame slide={slide} />

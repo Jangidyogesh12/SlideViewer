@@ -1,4 +1,10 @@
 .preview-shell {
+    --strip-open-width: 11.5rem;
+    --strip-collapsed-width: 2.6rem;
+    --thumb-width: 136px;
+    --thumb-height: 76.5px;
+    --thumb-index-width: 1.35rem;
+    --thumb-gap: 0.55rem;
     --panel: #1f2026;
     --panel-border: #2a2a2a;
     --panel-soft: #2a2e3d;
@@ -8,10 +14,11 @@
 
     min-height: 100vh;
     display: grid;
-    grid-template-columns: 13rem 1fr;
+    grid-template-columns: var(--strip-open-width) 1fr;
     background: #000;
     color: var(--text);
     transition: grid-template-columns 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    overflow-x: hidden;
 }
 
 .preview-shell.theme-light {
@@ -79,7 +86,7 @@
 }
 
 .preview-shell.drawer-collapsed {
-    grid-template-columns: clamp(2.2rem, 6vw, 3.4rem) 1fr;
+    grid-template-columns: var(--strip-collapsed-width) 1fr;
 }
 
 .slide-strip {
@@ -96,7 +103,7 @@
 }
 
 .slide-strip.is-collapsed {
-    padding-inline: clamp(0.08rem, 0.5vw, 0.2rem);
+    padding-inline: 0.2rem;
 }
 
 .slide-strip.is-collapsed .thumb-list,
@@ -105,13 +112,15 @@
 }
 
 .strip-action {
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 1.9rem;
+    height: 1.9rem;
     border: 0;
     background: transparent;
     color: #d7dced;
     border-radius: 0.6rem;
-    font-size: 1.9rem;
+    font-size: 1.5rem;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 500;
     line-height: 1;
     padding: 0 0 0.18rem;
     cursor: pointer;
@@ -129,7 +138,9 @@
 }
 
 .slide-strip.is-collapsed .strip-action {
-    right: clamp(0.15rem, 1.2vw, 0.55rem);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
 }
 
 .strip-action:hover {
@@ -139,6 +150,10 @@
 
 .strip-action:active {
     transform: scale(0.96);
+}
+
+.slide-strip.is-collapsed .strip-action:active {
+    transform: translateX(-50%) scale(0.96);
 }
 
 .strip-action:focus-visible {
@@ -156,14 +171,14 @@
 
 .thumb-row {
     display: grid;
-    grid-template-columns: 1.35rem 1fr;
+    grid-template-columns: var(--thumb-index-width) var(--thumb-width);
     align-items: center;
-    gap: 0.55rem;
+    gap: var(--thumb-gap);
 }
 
 .thumb-index {
     color: #c4cad8;
-    font-size: clamp(1rem, 1.15vw, 1.25rem);
+    font-size: 0.9rem;
     font-weight: 400;
     font-family: "Space Grotesk", sans-serif;
     line-height: 1;
@@ -174,15 +189,17 @@
 .thumb-card {
     border: 1px solid var(--panel-soft);
     background: rgba(6, 12, 35, 0.35);
-    border-radius: 0.3rem;
+    border-radius: 0.42rem;
     color: inherit;
     text-align: left;
     cursor: pointer;
-    padding: 0.2rem;
+    padding: 0;
+    overflow: hidden;
     transition:
         transform 0.18s ease,
         border-color 0.18s ease,
         box-shadow 0.18s ease;
+    width: var(--thumb-width);
 }
 
 .thumb-card:hover {
@@ -191,16 +208,17 @@
 
 .thumb-card.is-active {
     border-color: var(--active);
-    box-shadow: 0 0 0 2px rgba(31, 144, 255, 0.35);
+    box-shadow: 0 0 0 3px rgba(31, 144, 255, 0.38);
 }
 
 .thumb-viewport {
-    width: 100%;
-    aspect-ratio: 16 / 9;
+    width: var(--thumb-width);
+    height: var(--thumb-height);
     overflow: hidden;
-    border-radius: 0.18rem;
-    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 0;
+    border: 0;
     position: relative;
+    margin-inline: auto;
 }
 
 .thumb-scale {
@@ -212,7 +230,7 @@
 .thumb-scale .slide-canvas {
     width: 1920px;
     height: 1080px;
-    border-radius: 3px;
+    border-radius: 0;
     border-width: 3px;
     box-shadow: none;
     transition: none;
@@ -230,6 +248,7 @@
     padding: 2.5rem;
     z-index: 1;
     background: transparent;
+    overflow: hidden;
 }
 
 .empty-stage {
@@ -293,9 +312,7 @@
         ),
         linear-gradient(100deg, #19254f 0%, #060b26 58%, #020617 100%);
     box-shadow: none;
-    transition:
-        width 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-        box-shadow 0.24s ease;
+    transition: box-shadow 0.24s ease;
     container-type: inline-size;
 }
 
@@ -521,6 +538,7 @@
     }
 }
 
+
 .badges {
     list-style: none;
     margin: 1.75rem 0 0;
@@ -538,128 +556,4 @@
     color: #cad3f5;
     font-size: clamp(0.43rem, 1.7cqi, 0.96rem);
     background: rgba(20, 32, 72, 0.35);
-}
-
-@media (max-width: 1000px) {
-    .preview-shell.empty-preview-shell {
-        grid-template-columns: 1fr;
-    }
-
-    .slide-strip {
-        border-right: 1px solid var(--panel-border);
-        border-bottom: 0;
-        padding: 0.85rem 0.7rem 1rem;
-    }
-
-    .slide-strip.is-collapsed {
-        padding-inline: 0.2rem;
-    }
-
-    .preview-shell.drawer-collapsed {
-        grid-template-columns: clamp(2rem, 8vw, 2.8rem) 1fr;
-    }
-
-    .slide-strip.is-collapsed .thumb-list,
-    .slide-strip.is-collapsed .thumb-index {
-        display: none;
-    }
-
-    .strip-action {
-        display: grid;
-        width: clamp(1.7rem, 4.2vw, 2.15rem);
-        height: clamp(1.7rem, 4.2vw, 2.15rem);
-        font-size: clamp(1.45rem, 3.6vw, 1.85rem);
-        right: clamp(0.15rem, 1.2vw, 0.55rem);
-        top: clamp(0.55rem, 1.3vw, 0.8rem);
-    }
-
-    .thumb-list {
-        margin-top: 2.7rem;
-        gap: 0.6rem;
-    }
-
-    .thumb-row {
-        grid-template-columns: 1.1rem 1fr;
-        gap: 0.4rem;
-    }
-
-    .thumb-index {
-        font-size: clamp(1.1rem, 2.2vw, 1.5rem);
-    }
-
-    .thumb-card {
-        padding: 0.22rem;
-        border-radius: 0.24rem;
-    }
-
-    .thumb-viewport {
-        border-radius: 0.14rem;
-    }
-
-    .thumb-scale .slide-canvas {
-        border-radius: 2px;
-    }
-
-    .stage {
-        padding: 0.9rem;
-    }
-
-    .slide-canvas {
-        width: min(100%, calc((100vh - 1.8rem) * (16 / 9)));
-    }
-
-    .slide-topbar,
-    .slide-foot {
-        left: 1.2rem;
-        right: 1.2rem;
-        font-size: 0.56rem;
-    }
-
-    .brand {
-        font-size: 0.67rem;
-    }
-
-    .brand-dot {
-        width: 0.75rem;
-    }
-
-    .slide-content {
-        padding: 3.5rem 0.8rem 2.2rem;
-    }
-
-    .pill {
-        font-size: 0.46rem;
-    }
-}
-
-@media (max-width: 700px) {
-    .preview-shell.drawer-collapsed {
-        grid-template-columns: clamp(1.7rem, 7vw, 2.3rem) 1fr;
-    }
-
-    .slide-strip {
-        padding-inline: clamp(0.35rem, 1.8vw, 0.55rem);
-    }
-
-    .thumb-row {
-        grid-template-columns: 0.95rem 1fr;
-        gap: 0.32rem;
-    }
-
-    .thumb-index {
-        font-size: clamp(0.8rem, 3.2vw, 1.15rem);
-    }
-
-    .thumb-card {
-        padding: 0.2rem;
-        border-radius: 0.18rem;
-    }
-
-    .thumb-viewport {
-        border-radius: 0.1rem;
-    }
-
-    .thumb-scale .slide-canvas {
-        border-radius: 1px;
-    }
 }

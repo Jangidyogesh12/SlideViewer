@@ -14,4 +14,5 @@ body,
 body {
   font-family: Manrope, sans-serif;
   background: #111218;
+  overflow-x: hidden;
 }
