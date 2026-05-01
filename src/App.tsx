@@ -1,7 +1,6 @@
 import "./App.css";
 import { slidesData } from "./slides";
-// import { SlidePreview } from "./components/ui/SlidePreviw";
-import { SlidePreview } from "@yogesharma2003/slide-preview";
+import { SlidePreview } from "./components/ui/SlidePreviw";
 
 function App() {
   return <SlidePreview items={slidesData} theme="light" />;
