@@ -1,75 +1,38 @@
-import { useState } from "react";
 import { SlideFrame } from "./SlideFrame";
 
 import type { SlideData } from "../../slides";
-import { NoData } from "../molecules/NoData";
-
-const BASE_SLIDE_WIDTH = 1920;
-const BASE_SLIDE_HEIGHT = 1080;
-const THUMB_SCALE = 0.071;
+import { useState } from "react";
 
 type SlidePreviewProps = {
   items: SlideData[];
   theme?: "dark" | "light";
 };
 
-export function SlidePreview({ items, theme = "dark" }: SlidePreviewProps) {
-  const [selectedSlideId, setSelectedSlideId] = useState(items[0]?.id ?? "");
+export function SlidePreview({ items }: SlidePreviewProps) {
+  const activeSlide = items[0];
+
   const [drawerOpen, setDrawerOpen] = useState(true);
 
-  if (!items.length) {
-    return <NoData theme={theme} />;
-  }
-
-  const activeSlide =
-    items.find((slide) => slide.id === selectedSlideId) ?? items[0];
-
   return (
-    <main
-      className={`preview-shell ${theme === "light" ? "theme-light" : "theme-dark"} ${drawerOpen ? "" : "drawer-collapsed"}`}
-    >
+    <main className="slide-previewer">
       <aside
-        className={`slide-strip ${drawerOpen ? "" : "is-collapsed"}`}
+        className={`drawer ${drawerOpen ? "open" : "closed"}`}
         aria-label="Slide thumbnails"
       >
         <button
-          className="strip-action"
+          className="DrawerActionButton"
           type="button"
-          aria-label={drawerOpen ? "Hide slide drawer" : "Show slide drawer"}
+          title={drawerOpen ? "Collapse sidebar" : "Expand sidebar"}
+          aria-label={drawerOpen ? "Collapse sidebar" : "Expand sidebar"}
           onClick={() => setDrawerOpen((open) => !open)}
         >
-          <span aria-hidden="true">{drawerOpen ? "‹" : "›"}</span>
+          {drawerOpen ? "<" : ">"}
         </button>
-        <ol className="thumb-list">
-          {items.map((slide, index) => (
-            <li key={slide.id} className="thumb-row">
-              <span className="thumb-index">{index + 1}</span>
-              <button
-                type="button"
-                className={`thumb-card ${slide.id === activeSlide.id ? "is-active" : ""}`}
-                aria-current={slide.id === activeSlide.id ? "true" : undefined}
-                aria-label={slide.name ?? `Slide ${slide.id}`}
-                onClick={() => setSelectedSlideId(slide.id)}
-              >
-                <div className="thumb-viewport">
-                  <div
-                    className="thumb-scale"
-                    style={{
-                      width: BASE_SLIDE_WIDTH,
-                      height: BASE_SLIDE_HEIGHT,
-                      transform: `scale(${THUMB_SCALE})`,
-                    }}
-                  >
-                    <SlideFrame slide={slide} />
-                  </div>
-                </div>
-              </button>
-            </li>
-          ))}
-        </ol>
       </aside>
-
-      <section className="stage" aria-label="Slide canvas preview">
+      <section
+        className="slide-canvas-section"
+        aria-label="Slide canvas preview"
+      >
         <SlideFrame slide={activeSlide} />
       </section>
     </main>

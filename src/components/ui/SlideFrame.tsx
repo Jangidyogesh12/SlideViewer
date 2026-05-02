@@ -8,15 +8,11 @@ type SlideFrameProps = {
 export function SlideFrame({ slide }: SlideFrameProps) {
   const canvasStyle: CSSProperties = {
     background: slide.canvas_style,
-    borderColor: slide.canvas_border_color,
   };
 
   return (
-    <article className="slide-canvas" style={canvasStyle}>
-      <div
-        className="slide-markup"
-        dangerouslySetInnerHTML={{ __html: slide.content }}
-      ></div>
+    <article style={canvasStyle}>
+      <div dangerouslySetInnerHTML={{ __html: slide.content }}></div>
     </article>
   );
 }

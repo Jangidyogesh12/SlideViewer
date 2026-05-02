@@ -1,8 +1,7 @@
 export function NoData({ theme = "dark" }: { theme?: "dark" | "light" }) {
+  console.log(theme);
   return (
-    <main
-      className={`preview-shell empty-preview-shell ${theme === "light" ? "theme-light" : "theme-dark"}`}
-    >
+    <main>
       <section className="stage empty-stage" aria-label="Slide canvas preview">
         <div className="empty-state" role="status" aria-live="polite">
           <div className="empty-icon" aria-hidden="true">
