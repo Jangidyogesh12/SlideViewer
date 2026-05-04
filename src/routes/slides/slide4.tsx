@@ -6,7 +6,8 @@ export const Route = createFileRoute("/slides/slide4")({
 });
 
 function RouteComponent() {
-  const isThumbnail = new URLSearchParams(window.location.search).get("thumbnail") === "1";
+  const isThumbnail =
+    new URLSearchParams(window.location.search).get("thumbnail") === "1";
 
   const slide = {
     canvasStyle:
