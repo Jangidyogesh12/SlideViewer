@@ -1,25 +1,21 @@
-import { SlideFrame, type SlideContent } from "./SlideFrame";
+import type { ReactNode } from "react";
 
 type SlidePageProps = {
-  slide: SlideContent;
+  children: ReactNode;
 };
 
-export function SlidePage({ slide }: SlidePageProps) {
+export function SlidePage({ children }: SlidePageProps) {
   const isThumbnail =
     typeof window !== "undefined" &&
     new URLSearchParams(window.location.search).get("thumbnail") === "1";
 
   if (isThumbnail) {
     return (
-      <div className="h-screen overflow-hidden bg-[#0d0d0d]">
-        <SlideFrame slide={slide} />
-      </div>
+      <div className="h-screen overflow-hidden bg-[#0d0d0d]">{children}</div>
     );
   }
 
   return (
-    <main className="flex min-h-screen items-center px-[10%]">
-      <SlideFrame slide={slide} />
-    </main>
+    <main className="flex min-h-screen items-center px-[10%]">{children}</main>
   );
 }
