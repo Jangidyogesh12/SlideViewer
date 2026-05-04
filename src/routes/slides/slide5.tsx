@@ -1,14 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SlideFrame } from "../../components/molecules/SlideFrame";
+import { SlidePage } from "../../components/molecules/SlidePage";
 
 export const Route = createFileRoute("/slides/slide5")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const isThumbnail =
-    new URLSearchParams(window.location.search).get("thumbnail") === "1";
-
   const slide = {
     canvasStyle:
       "radial-gradient(circle at 10% 75%, rgba(35, 131, 255, 0.18), transparent 30%), radial-gradient(circle at 90% 20%, rgba(110, 160, 255, 0.14), transparent 32%), linear-gradient(110deg, #151f36 0%, #0b1327 48%, #050b18 100%)",
@@ -19,17 +16,5 @@ function RouteComponent() {
     `,
   };
 
-  if (isThumbnail) {
-    return (
-      <div className="h-screen overflow-hidden bg-[#0d0d0d]">
-        <SlideFrame slide={slide} />
-      </div>
-    );
-  }
-
-  return (
-    <main className="flex min-h-screen items-center px-[10%]">
-      <SlideFrame slide={slide} />
-    </main>
-  );
+  return <SlidePage slide={slide} />;
 }
