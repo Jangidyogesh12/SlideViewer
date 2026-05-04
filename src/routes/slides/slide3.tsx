@@ -20,7 +20,11 @@ function RouteComponent() {
   };
 
   if (isThumbnail) {
-    return <SlideFrame slide={slide} />;
+    return (
+      <div className="h-screen overflow-hidden bg-[#0d0d0d]">
+        <SlideFrame slide={slide} />
+      </div>
+    );
   }
 
   return (

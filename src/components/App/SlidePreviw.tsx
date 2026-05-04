@@ -47,7 +47,7 @@ export function SlidePreview({
                         <iframe
                           title={`${slide.name} thumbnail`}
                           src={`${slide.path}?thumbnail=1`}
-                          className="pointer-events-none block aspect-video w-full rounded-md border-none"
+                          className="pointer-events-none block aspect-video w-full overflow-hidden rounded-md border-none bg-[#0d0d0d]"
                           loading="lazy"
                         />
                       </span>
