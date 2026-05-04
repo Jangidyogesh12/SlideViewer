@@ -1,4 +1,3 @@
-import "./App.css";
 import { slidesData } from "./slides";
 import { SlidePreview } from "./components/ui/SlidePreviw";
 

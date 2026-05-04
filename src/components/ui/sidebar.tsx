@@ -1,0 +1,72 @@
+import { createContext, useContext, useMemo, useState } from "react";
+import type { PropsWithChildren } from "react";
+
+type SidebarContextValue = {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  toggle: () => void;
+};
+
+const SidebarContext = createContext<SidebarContextValue | null>(null);
+
+type SidebarProviderProps = PropsWithChildren<{
+  defaultOpen?: boolean;
+}>;
+
+export function SidebarProvider({
+  children,
+  defaultOpen = true,
+}: SidebarProviderProps) {
+  const [open, setOpen] = useState(defaultOpen);
+
+  const value = useMemo(
+    () => ({
+      open,
+      setOpen,
+      toggle: () => setOpen((state) => !state),
+    }),
+    [open],
+  );
+
+  return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>;
+}
+
+function useSidebar() {
+  const context = useContext(SidebarContext);
+
+  if (!context) {
+    throw new Error("Sidebar components must be used inside SidebarProvider");
+  }
+
+  return context;
+}
+
+export function Sidebar({ children }: PropsWithChildren) {
+  const { open } = useSidebar();
+
+  return (
+    <aside
+      className="relative overflow-visible border-r border-[#2a2d39] bg-[#1b1d26] transition-[width] duration-200 ease-out data-[state=collapsed]:w-11 data-[state=expanded]:w-60"
+      data-state={open ? "expanded" : "collapsed"}
+      aria-label="Slide thumbnails"
+    >
+      {children}
+    </aside>
+  );
+}
+
+export function SidebarTrigger() {
+  const { open, toggle } = useSidebar();
+
+  return (
+    <button
+      className="absolute right-2 top-4 cursor-pointer rounded-lg border-none bg-transparent px-2.5 py-1.5 text-base text-white hover:bg-white/10 focus-visible:bg-white/10"
+      type="button"
+      title={open ? "Collapse sidebar" : "Expand sidebar"}
+      aria-label={open ? "Collapse sidebar" : "Expand sidebar"}
+      onClick={toggle}
+    >
+      {open ? "<" : ">"}
+    </button>
+  );
+}
