@@ -28,7 +28,9 @@ export function SidebarProvider({
     [open],
   );
 
-  return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>;
+  return (
+    <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>
+  );
 }
 
 function useSidebar() {
@@ -46,7 +48,7 @@ export function Sidebar({ children }: PropsWithChildren) {
 
   return (
     <aside
-      className="relative overflow-visible border-r border-[#2a2d39] bg-[#1b1d26] transition-[width] duration-200 ease-out data-[state=collapsed]:w-11 data-[state=expanded]:w-60"
+      className="relative overflow-visible border-r-[0.5px] border-[#2a2d39] bg-[#0d0d0d] transition-[width] duration-200 ease-out data-[state=collapsed]:w-9 data-[state=expanded]:w-60"
       data-state={open ? "expanded" : "collapsed"}
       aria-label="Slide thumbnails"
     >
@@ -60,7 +62,7 @@ export function SidebarTrigger() {
 
   return (
     <button
-      className="absolute right-2 top-4 cursor-pointer rounded-lg border-none bg-transparent px-2.5 py-1.5 text-base text-white hover:bg-white/10 focus-visible:bg-white/10"
+      className="absolute right-1 top-3 cursor-pointer rounded-lg border-none bg-transparent px-2 py-px text-base text-white hover:bg-white/10 focus-visible:bg-white/10"
       type="button"
       title={open ? "Collapse sidebar" : "Expand sidebar"}
       aria-label={open ? "Collapse sidebar" : "Expand sidebar"}
