@@ -12,35 +12,108 @@ function RouteComponent() {
       <SlideFrame
         canvasStyle={{
           background:
-            "radial-gradient(circle at 10% 75%, rgba(35, 131, 255, 0.18), transparent 30%), radial-gradient(circle at 90% 20%, rgba(110, 160, 255, 0.14), transparent 32%), linear-gradient(110deg, #151f36 0%, #0b1327 48%, #050b18 100%)",
+            "radial-gradient(circle at 18% 82%, rgba(16, 185, 129, 0.26), transparent 34%), radial-gradient(circle at 90% 18%, rgba(45, 212, 191, 0.18), transparent 30%), linear-gradient(120deg, #0b1a1f 0%, #0f2a2f 52%, #0b1f24 100%)",
+          color: "#ecfeff",
         }}
       >
-        <header className="slide-topbar">
-          <div className="brand">
-            <span className="brand-dot"></span>
-            <span>acme.cloud</span>
-          </div>
-          <span className="meta">AUGUST 2026</span>
-        </header>
-        <div className="slide-content">
-          <p className="pill">next step</p>
-          <h1>
-            Ready to transform<span>your workflow?</span>
-          </h1>
-          <p className="summary">
-            Adopt the same blueprint top cloud-native teams use to ship faster
-            with less stress.
-          </p>
-          <ul className="badges">
-            <li>Migration in 2 weeks</li>
-            <li>White-glove onboarding</li>
-            <li>Enterprise-ready</li>
-          </ul>
+        <div
+          style={{
+            height: "100%",
+            padding: "2.5vw",
+            display: "grid",
+            gridTemplateRows: "auto 1fr auto",
+            gap: "1.4vw",
+            fontFamily: "'Space Grotesk', 'Manrope', sans-serif",
+          }}
+        >
+          <header
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              fontSize: "0.98vw",
+              color: "#99f6e4",
+            }}
+          >
+            <span>DECISION SLIDE</span>
+            <span>Next 30 days</span>
+          </header>
+
+          <section
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1.2fr 1fr",
+              gap: "1.4vw",
+              alignItems: "center",
+            }}
+          >
+            <div>
+              <h2 style={{ margin: 0, fontSize: "3.25vw", lineHeight: 1.08 }}>
+                Move now to capture
+                <br />
+                first-mover AI advantage
+              </h2>
+              <p
+                style={{
+                  margin: "0.8vw 0 0",
+                  fontSize: "1.1vw",
+                  color: "#ccfbf1",
+                  maxWidth: "40vw",
+                  lineHeight: 1.45,
+                }}
+              >
+                Approve phase-one funding, appoint functional AI owners, and
+                launch three production pilots within 90 days.
+              </p>
+            </div>
+            <div
+              style={{
+                background: "rgba(15, 23, 42, 0.56)",
+                border: "0.08vw solid rgba(94, 234, 212, 0.35)",
+                borderRadius: "1vw",
+                padding: "1.3vw",
+                display: "grid",
+                gap: "0.6vw",
+              }}
+            >
+              <p style={{ margin: 0, fontSize: "1.05vw" }}>
+                Immediate commitments
+              </p>
+              <div
+                style={{
+                  display: "grid",
+                  gap: "0.55vw",
+                  fontSize: "0.93vw",
+                  color: "#99f6e4",
+                }}
+              >
+                <span>1. Approve AI operating budget and success KPIs</span>
+                <span>
+                  2. Stand up governance council with legal + security
+                </span>
+                <span>
+                  3. Launch support, engineering, and marketing pilots
+                </span>
+                <span>
+                  4. Review impact monthly with executive steering group
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <footer
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              fontSize: "0.84vw",
+              color: "#99f6e4",
+              borderTop: "0.08vw solid rgba(94, 234, 212, 0.3)",
+              paddingTop: "0.8vw",
+            }}
+          >
+            <span>Target outcome: 15-25% productivity gain in year one</span>
+            <span>05 / 05</span>
+          </footer>
         </div>
-        <footer className="slide-foot">
-          <span>ACME CLOUD, INC.</span>
-          <span>05 / 05</span>
-        </footer>
       </SlideFrame>
     </SlidePage>
   );

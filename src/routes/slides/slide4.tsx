@@ -12,35 +12,125 @@ function RouteComponent() {
       <SlideFrame
         canvasStyle={{
           background:
-            "radial-gradient(circle at 80% 18%, rgba(80, 130, 255, 0.2), transparent 28%), linear-gradient(110deg, #131a2f 0%, #0a1023 50%, #060914 100%)",
+            "radial-gradient(circle at 85% 16%, rgba(99, 102, 241, 0.25), transparent 30%), radial-gradient(circle at 12% 78%, rgba(14, 165, 233, 0.2), transparent 32%), linear-gradient(120deg, #111827 0%, #172554 52%, #0f172a 100%)",
+          color: "#e2e8f0",
         }}
       >
-        <header className="slide-topbar">
-          <div className="brand">
-            <span className="brand-dot"></span>
-            <span>acme.cloud</span>
+        <div
+          style={{
+            height: "100%",
+            padding: "2.4vw",
+            display: "grid",
+            gridTemplateRows: "auto auto 1fr auto",
+            gap: "1.2vw",
+            fontFamily: "'Space Grotesk', 'Manrope', sans-serif",
+          }}
+        >
+          <header
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              fontSize: "0.98vw",
+              color: "#a5b4fc",
+            }}
+          >
+            <span>OPERATING MODEL</span>
+            <span>Execution blueprint</span>
+          </header>
+          <div>
+            <h2 style={{ margin: 0, fontSize: "2.9vw", lineHeight: 1.1 }}>
+              12-month AI rollout roadmap
+            </h2>
+            <p
+              style={{
+                margin: "0.72vw 0 0",
+                fontSize: "1.08vw",
+                color: "#cbd5e1",
+                maxWidth: "44vw",
+              }}
+            >
+              Build foundations first, then scale use cases with governance,
+              MLOps, and cross-functional ownership.
+            </p>
           </div>
-          <span className="meta">JULY 2026</span>
-        </header>
-        <div className="slide-content">
-          <p className="pill">growth</p>
-          <h1>
-            Twelve months<span>of compounding growth.</span>
-          </h1>
-          <p className="summary">
-            A single operating model for engineering and platform teams with
-            measurable outcomes.
-          </p>
-          <ul className="badges">
-            <li>$48.2M Processed</li>
-            <li>2,847 Releases</li>
-            <li>0 Major Incidents</li>
-          </ul>
+
+          <section
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: "0.9vw",
+            }}
+          >
+            {[
+              [
+                "Q1",
+                "Data + policy baseline",
+                "Lakehouse cleanup, access control, prompt policy",
+              ],
+              [
+                "Q2",
+                "Pilot 3 use cases",
+                "Support assistant, coding copilot, campaign automation",
+              ],
+              [
+                "Q3",
+                "Scale + integrate",
+                "Deploy to 5 business units, add monitoring and guardrails",
+              ],
+              [
+                "Q4",
+                "Optimize ROI",
+                "Cost tuning, model mix, retraining cadence and scorecards",
+              ],
+            ].map(([q, title, desc]) => (
+              <article
+                key={q}
+                style={{
+                  background: "rgba(15, 23, 42, 0.64)",
+                  border: "0.08vw solid rgba(129, 140, 248, 0.35)",
+                  borderRadius: "0.9vw",
+                  padding: "1vw",
+                  display: "grid",
+                  gap: "0.45vw",
+                  alignContent: "start",
+                }}
+              >
+                <span style={{ fontSize: "0.84vw", color: "#93c5fd" }}>
+                  {q}
+                </span>
+                <h3 style={{ margin: 0, fontSize: "1.18vw", lineHeight: 1.2 }}>
+                  {title}
+                </h3>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "0.86vw",
+                    color: "#c7d2fe",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  {desc}
+                </p>
+              </article>
+            ))}
+          </section>
+
+          <footer
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              fontSize: "0.84vw",
+              color: "#a5b4fc",
+              borderTop: "0.08vw solid rgba(129, 140, 248, 0.3)",
+              paddingTop: "0.75vw",
+            }}
+          >
+            <span>
+              Critical success factor: shared ownership across tech + business
+            </span>
+            <span>04 / 05</span>
+          </footer>
         </div>
-        <footer className="slide-foot">
-          <span>ACME CLOUD, INC.</span>
-          <span>04 / 05</span>
-        </footer>
       </SlideFrame>
     </SlidePage>
   );

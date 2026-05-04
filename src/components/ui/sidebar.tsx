@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, useState } from "react";
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 
 type SidebarContextValue = {
   open: boolean;
@@ -41,6 +41,15 @@ function useSidebar() {
   }
 
   return context;
+}
+
+type SidebarStateProps = {
+  children: (state: { open: boolean }) => ReactNode;
+};
+
+export function SidebarState({ children }: SidebarStateProps) {
+  const { open } = useSidebar();
+  return <>{children({ open })}</>;
 }
 
 export function Sidebar({ children }: PropsWithChildren) {
