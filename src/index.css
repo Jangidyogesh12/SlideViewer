@@ -146,3 +146,80 @@ body {
     @apply font-sans;
   }
 }
+
+@layer components {
+  .slide-preview {
+    --sp-app-bg: #0b0d12;
+    --sp-app-text: #e5e7eb;
+    --sp-header-bg: #0d0d0d;
+    --sp-divider: #2a2d39;
+    --sp-slide-index-active: #fffbeb;
+    --sp-slide-index-inactive: #9ca3af;
+    --sp-slide-card-bg: #10131a;
+    --sp-slide-card-border-active: #2383ff;
+    --sp-slide-card-border-inactive: #2a2d39;
+    --sp-slide-card-border-hover: #4b5563;
+    --sp-slide-frame-bg: #0d0d0d;
+    --sp-action-border: #4b5563;
+    --sp-action-bg: #1f2937;
+    --sp-action-text: #f9fafb;
+    --sp-action-hover-bg: #374151;
+    --sp-sidebar-bg: #0d0d0d;
+    --sp-sidebar-trigger-text: #ffffff;
+    --sp-sidebar-trigger-hover: rgba(255, 255, 255, 0.1);
+    --sp-content-bg: #05070c;
+  }
+
+  .slide-preview[data-theme="light"] {
+    --sp-app-bg: #f6f6f4;
+    --sp-app-text: #111827;
+    --sp-header-bg: #f6f6f4;
+    --sp-divider: #c7ccd4;
+    --sp-slide-index-active: #1f2937;
+    --sp-slide-index-inactive: #9ca3af;
+    --sp-slide-card-bg: #f6f6f4;
+    --sp-slide-card-border-active: #2383ff;
+    --sp-slide-card-border-inactive: #d1d5db;
+    --sp-slide-card-border-hover: #9ca3af;
+    --sp-slide-frame-bg: #f3f4f6;
+    --sp-action-border: #d1d5db;
+    --sp-action-bg: #ffffff;
+    --sp-action-text: #111827;
+    --sp-action-hover-bg: #f3f4f6;
+    --sp-sidebar-bg: #f6f6f4;
+    --sp-sidebar-trigger-text: #4b5563;
+    --sp-sidebar-trigger-hover: #e5e7eb;
+    --sp-content-bg: #ffffff;
+  }
+
+  .sp-header {
+    background: var(--sp-header-bg);
+    border-color: var(--sp-divider);
+  }
+
+  .sp-action-button {
+    border-color: var(--sp-action-border);
+    background: var(--sp-action-bg);
+    color: var(--sp-action-text);
+  }
+
+  .sp-action-button:hover {
+    background: var(--sp-action-hover-bg);
+  }
+
+  .sp-slide-card {
+    background: var(--sp-slide-card-bg);
+  }
+
+  .sp-slide-card-active {
+    border-color: var(--sp-slide-card-border-active);
+  }
+
+  .sp-slide-card-inactive {
+    border-color: var(--sp-slide-card-border-inactive);
+  }
+
+  .group:hover .sp-slide-card-inactive {
+    border-color: var(--sp-slide-card-border-hover);
+  }
+}

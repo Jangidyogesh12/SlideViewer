@@ -9,10 +9,13 @@ import { type ReactNode } from "react";
 import { Download, Play } from "lucide-react";
 import { Button } from "../ui/button";
 
+type SlidePreviewTheme = "dark" | "light";
+
 function SlideList({
   slides,
   activeSlideId,
   onSlideSelect,
+  theme,
 }: Omit<SlidePreviewProps, "children">) {
   return (
     <SidebarState>
@@ -31,22 +34,26 @@ function SlideList({
                     aria-label={`Open ${slide.name}`}
                   >
                     <span
-                      className={`w-6 shrink-0 text-center text-[12px] ${isActive ? "text-amber-50" : "text-gray-400"}`}
+                      className={`w-6 shrink-0 text-center text-[12px] ${
+                        isActive
+                          ? "text-[var(--sp-slide-index-active)]"
+                          : "text-[var(--sp-slide-index-inactive)]"
+                      }`}
                     >
                       {index + 1}
                     </span>
                     {open ? (
                       <span
-                        className={`block flex-1 overflow-hidden rounded-lg border bg-[#10131a] p-0.5 transition-colors ${
+                        className={`sp-slide-card block flex-1 overflow-hidden rounded-lg border p-0.5 transition-colors ${
                           isActive
-                            ? "border-[#2383ff]"
-                            : "border-[#2a2d39] group-hover:border-[#4b5563]"
+                            ? "sp-slide-card-active"
+                            : "sp-slide-card-inactive"
                         }`}
                       >
                         <iframe
                           title={`${slide.name} thumbnail`}
-                          src={`${slide.path}?thumbnail=1`}
-                          className="pointer-events-none block aspect-video w-full overflow-hidden rounded-md border-none bg-[#0d0d0d]"
+                          src={`${slide.path}?thumbnail=1&theme=${theme}`}
+                          className="pointer-events-none block aspect-video w-full overflow-hidden rounded-md border-none bg-[var(--sp-slide-frame-bg)]"
                           loading="lazy"
                         />
                       </span>
@@ -67,6 +74,7 @@ type SlidePreviewProps = {
   slides: SlideMeta[];
   activeSlideId: string;
   onSlideSelect: (slideId: string) => void;
+  theme?: SlidePreviewTheme;
 };
 
 export function SlidePreview({
@@ -74,30 +82,35 @@ export function SlidePreview({
   slides,
   activeSlideId,
   onSlideSelect,
+  theme = "dark",
 }: SlidePreviewProps) {
   return (
     <SidebarProvider defaultOpen>
-      <div className="min-h-screen bg-[#0b0d12] text-[#e5e7eb]">
-        <header className="flex h-10 items-center justify-end border-b border-[#2a2d39] bg-[#0d0d0d] px-5">
+      <div
+        className="slide-preview min-h-screen bg-[var(--sp-app-bg)] text-[var(--sp-app-text)]"
+        data-theme={theme}
+      >
+        <header className="sp-header flex h-10 items-center justify-end border-b px-5">
           <div className="flex items-center justify-center gap-4">
-            <Button size="xs" variant="default">
+            <Button size="xs" variant="ghost" className="sp-action-button">
               <Download className="size-4" />
               Export
             </Button>
-            <Button size="xs" variant="default">
+            <Button size="xs" variant="ghost" className="sp-action-button">
               <Play className="size-4" />
               Present
             </Button>
           </div>
         </header>
-        <main className="flex h-[calc(100vh-4rem)]">
-          <Sidebar>
+        <main className="flex h-[calc(100vh-4rem)] bg-[var(--sp-content-bg)]">
+          <Sidebar className="border-[var(--sp-divider)] bg-[var(--sp-sidebar-bg)]">
             <SlideList
               slides={slides}
               activeSlideId={activeSlideId}
               onSlideSelect={onSlideSelect}
+              theme={theme}
             />
-            <SidebarTrigger />
+            <SidebarTrigger className="text-[var(--sp-sidebar-trigger-text)] hover:bg-[var(--sp-sidebar-trigger-hover)] focus-visible:bg-[var(--sp-sidebar-trigger-hover)]" />
           </Sidebar>
           {children}
         </main>

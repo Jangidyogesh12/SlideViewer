@@ -8,6 +8,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const previewTheme = "light";
   const [activeSlideId, setActiveSlideId] = useState(
     slideList[0]?.id ?? "slide-1",
   );
@@ -19,6 +20,7 @@ function Index() {
       slides={slideList}
       activeSlideId={activeSlideId}
       onSlideSelect={setActiveSlideId}
+      theme={previewTheme}
     >
       <section
         className="flex w-full items-center justify-center"
@@ -26,7 +28,7 @@ function Index() {
       >
         <iframe
           title={`${activeSlideId} preview`}
-          src={activeSlide.path}
+          src={`${activeSlide.path}?theme=${previewTheme}`}
           className="h-full w-full overflow-hidden"
         />
       </section>

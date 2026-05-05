@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import type { PropsWithChildren, ReactNode } from "react";
+import { cn } from "../../lib/utils";
 
 type SidebarContextValue = {
   open: boolean;
@@ -52,12 +53,19 @@ export function SidebarState({ children }: SidebarStateProps) {
   return <>{children({ open })}</>;
 }
 
-export function Sidebar({ children }: PropsWithChildren) {
+type SidebarProps = PropsWithChildren<{
+  className?: string;
+}>;
+
+export function Sidebar({ children, className }: SidebarProps) {
   const { open } = useSidebar();
 
   return (
     <aside
-      className="relative overflow-visible border-r-[0.5px] border-[#2a2d39] bg-[#0d0d0d] transition-[width] duration-200 ease-out data-[state=collapsed]:w-9 data-[state=expanded]:w-60"
+      className={cn(
+        "relative overflow-visible border-r-[0.5px] border-[#2a2d39] bg-[#0d0d0d] transition-[width] duration-200 ease-out data-[state=collapsed]:w-9 data-[state=expanded]:w-60",
+        className,
+      )}
       data-state={open ? "expanded" : "collapsed"}
       aria-label="Slide thumbnails"
     >
@@ -66,12 +74,19 @@ export function Sidebar({ children }: PropsWithChildren) {
   );
 }
 
-export function SidebarTrigger() {
+type SidebarTriggerProps = {
+  className?: string;
+};
+
+export function SidebarTrigger({ className }: SidebarTriggerProps) {
   const { open, toggle } = useSidebar();
 
   return (
     <button
-      className="absolute right-1 top-3 cursor-pointer rounded-lg border-none bg-transparent px-2 py-px text-base text-white hover:bg-white/10 focus-visible:bg-white/10"
+      className={cn(
+        "absolute right-1 top-3 cursor-pointer rounded-lg border-none bg-transparent px-2 py-px text-base text-white hover:bg-white/10 focus-visible:bg-white/10",
+        className,
+      )}
       type="button"
       title={open ? "Collapse sidebar" : "Expand sidebar"}
       aria-label={open ? "Collapse sidebar" : "Expand sidebar"}

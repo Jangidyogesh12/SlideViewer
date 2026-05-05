@@ -5,17 +5,21 @@ type SlidePageProps = {
 };
 
 export function SlidePage({ children }: SlidePageProps) {
-  const isThumbnail =
-    typeof window !== "undefined" &&
-    new URLSearchParams(window.location.search).get("thumbnail") === "1";
+  const searchParams =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search)
+      : null;
+  const isThumbnail = searchParams?.get("thumbnail") === "1";
+  const theme = searchParams?.get("theme") === "light" ? "light" : "dark";
+  const pageBg = theme === "light" ? "bg-[#f6f6f4]" : "bg-[#0d0d0d]";
 
   if (isThumbnail) {
-    return (
-      <div className="h-screen overflow-hidden bg-[#0d0d0d]">{children}</div>
-    );
+    return <div className={`h-screen overflow-hidden ${pageBg}`}>{children}</div>;
   }
 
   return (
-    <main className="flex min-h-screen items-center px-[10%]">{children}</main>
+    <main className={`flex min-h-screen items-center px-[10%] ${pageBg}`}>
+      {children}
+    </main>
   );
 }
