@@ -6,6 +6,8 @@ import {
 } from "../ui/sidebar";
 import type { SlideMeta } from "../../slideManifest";
 import { type ReactNode } from "react";
+import { Download, Play } from "lucide-react";
+import { Button } from "../ui/button";
 
 function SlideList({
   slides,
@@ -15,7 +17,7 @@ function SlideList({
   return (
     <SidebarState>
       {({ open }) => (
-        <div className="h-screen overflow-y-auto px-2 pb-5 pt-12">
+        <div className="h-[calc(100vh-4rem)] overflow-y-auto px-2 pb-5 pt-12">
           <ol className="m-0 list-none space-y-4 p-0">
             {slides.map((slide, index) => {
               const isActive = slide.id === activeSlideId;
@@ -75,17 +77,31 @@ export function SlidePreview({
 }: SlidePreviewProps) {
   return (
     <SidebarProvider defaultOpen>
-      <main className="flex min-h-screen">
-        <Sidebar>
-          <SlideList
-            slides={slides}
-            activeSlideId={activeSlideId}
-            onSlideSelect={onSlideSelect}
-          />
-          <SidebarTrigger />
-        </Sidebar>
-        {children}
-      </main>
+      <div className="min-h-screen bg-[#0b0d12] text-[#e5e7eb]">
+        <header className="flex h-10 items-center justify-end border-b border-[#2a2d39] bg-[#0d0d0d] px-5">
+          <div className="flex items-center justify-center gap-4">
+            <Button size="xs" variant="default">
+              <Download className="size-4" />
+              Export
+            </Button>
+            <Button size="xs" variant="default">
+              <Play className="size-4" />
+              Present
+            </Button>
+          </div>
+        </header>
+        <main className="flex h-[calc(100vh-4rem)]">
+          <Sidebar>
+            <SlideList
+              slides={slides}
+              activeSlideId={activeSlideId}
+              onSlideSelect={onSlideSelect}
+            />
+            <SidebarTrigger />
+          </Sidebar>
+          {children}
+        </main>
+      </div>
     </SidebarProvider>
   );
 }
